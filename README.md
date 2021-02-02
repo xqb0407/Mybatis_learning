@@ -37,7 +37,7 @@
 - Mybatis环境配置标签<environment>
 - environment包含数据库驱动、URL、用户名与密码
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210131135637533.png" alt="image-20210131135637533" style="zoom:80%;" />
+<img src=".\img\image-20210131135637533.png" alt="image-20210131135637533" style="zoom:80%;" />
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -342,11 +342,11 @@ public class topic {
 
 **测试结果**
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210131161539165.png" alt="image-20210131161539165" style="zoom:80%;" />
+<img src=".\img\image-20210131161539165.png" alt="image-20210131161539165" style="zoom:80%;" />
 
 ## SQL传参
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210131162049003.png" alt="image-20210131162049003" style="zoom:80%;" />
+<img src=".\img\image-20210131162049003.png" alt="image-20210131162049003" style="zoom:80%;" />
 
 ### 传递单个参数
 
@@ -383,7 +383,7 @@ public class topic {
 }
 ```
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210131163217492.png" alt="image-20210131163217492" style="zoom:80%;" />
+<img src=".\img\image-20210131163217492.png" alt="image-20210131163217492" style="zoom:80%;" />
 
 ### 传递多个参数
 
@@ -426,7 +426,7 @@ select  * from topic where click between #{min} and #{max} limit #{limit},#{page
 }
 ```
 
-![image-20210131165045428](D:\桌面\软件工程\文档\ssm框架\img\image-20210131165045428.png)
+![image-20210131165045428](.\img\image-20210131165045428.png)
 
 ## Mybatis多表联合查询
 
@@ -465,7 +465,7 @@ public void TestselectMap(){
 
 **结果**
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210131175301154.png" alt="image-20210131175301154" style="zoom:80%;" />
+<img src=".\img\image-20210131175301154.png" alt="image-20210131175301154" style="zoom:80%;" />
 
 ## ResultMap结果映射
 
@@ -573,7 +573,7 @@ public class TopicDto {
 
 **结果**
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210131211703912.png" alt="image-20210131211703912" style="zoom:80%;" />
+<img src=".\img\image-20210131211703912.png" alt="image-20210131211703912" style="zoom:80%;" />
 
 ## Mybatis数据写入（增删改）
 
@@ -591,7 +591,7 @@ Mybatis写操作包含三种
 
 #### 新增-<insert>
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210131212613359.png" alt="image-20210131212613359" style="zoom:80%;" />
+<img src=".\img\image-20210131212613359.png" alt="image-20210131212613359" style="zoom:80%;" />
 
 ```xml
 <!--插入操作-->
@@ -642,13 +642,13 @@ public void TestInsert(){
 ```
 
 **测试结果**
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210131222601874.png" alt="image-20210131222601874" style="zoom:80%;" />
+<img src=".\img\image-20210131222601874.png" alt="image-20210131222601874" style="zoom:80%;" />
 
 ## selectKey与useGeneratedKeys的区别（用于获取自动生成的主键）
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210201113524288.png" alt="image-20210201113524288" style="zoom:80%;" />
+<img src=".\img\image-20210201113524288.png" alt="image-20210201113524288" style="zoom:80%;" />
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210131212613359.png" alt="image-20210131212613359" style="zoom:80%;" />
+<img src=".\img\image-20210131212613359.png" alt="image-20210131212613359" style="zoom:80%;" />
 
 ### 二者区别-显示与隐示
 
@@ -667,9 +667,9 @@ public void TestInsert(){
 
 ## 更新与删除操作
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210201114456041.png" alt="image-20210201114456041" style="zoom:80%;" />
+<img src=".\img\image-20210201114456041.png" alt="image-20210201114456041" style="zoom:80%;" />
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210201114528767.png" alt="image-20210201114528767" style="zoom:80%;" />
+<img src=".\img\image-20210201114528767.png" alt="image-20210201114528767" style="zoom:80%;" />
 
 **更新：**
 
@@ -724,7 +724,7 @@ public void TestUpdate(){
 }
 ```
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210201120240546.png" alt="image-20210201120240546" style="zoom:80%;" />
+<img src=".\img\image-20210201120240546.png" alt="image-20210201120240546" style="zoom:80%;" />
 
 **删除**
 
@@ -779,7 +779,7 @@ public  void TestDelete(){
 
 ## MyBatis工作流程
 
-![image-20210201123957520](D:\桌面\软件工程\文档\ssm框架\img\image-20210201123957520.png)
+![image-20210201123957520](.\img\image-20210201123957520.png)
 
 # 
 
@@ -864,7 +864,7 @@ public  void TestDynamiSelect(){
 }
 ```
 
-![image-20210201153129780](D:\桌面\软件工程\文档\ssm框架\img\image-20210201153129780.png)
+![image-20210201153129780](.\img\image-20210201153129780.png)
 
 **改动一下mapper**
 
@@ -888,7 +888,7 @@ public  void TestDynamiSelect(){
 1. 一级缓存默认开启，缓存范围SqlSession会话
 2. 二级缓存手动开启，属于范围mapper 中 namespace
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210201204442802.png" alt="image-20210201204442802" style="zoom:80%;" />
+<img src=".\img\image-20210201204442802.png" alt="image-20210201204442802" style="zoom:80%;" />
 
 ### 二级缓存运行规则
 
@@ -1069,7 +1069,7 @@ public  void TestSelectOneTopic(){
 
 **测试结果：**成功
 
-![image-20210202132456198](D:\桌面\软件工程\文档\ssm框架\img\image-20210202132456198.png)
+![image-20210202132456198](.\img\image-20210202132456198.png)
 
 ### 多对一的级联查询
 
@@ -1135,7 +1135,7 @@ public  void TestSelectManayTopic(){
 
 **测试结果：成功**
 
-![image-20210202134857351](D:\桌面\软件工程\文档\ssm框架\img\image-20210202134857351.png)
+![image-20210202134857351](.\img\image-20210202134857351.png)
 
 **上图中topicId为空，是因为Mybatis的机制**
 
@@ -1147,7 +1147,7 @@ public  void TestSelectManayTopic(){
 <result property="topicId" column="topic_id"></result>
 ```
 
-![image-20210202135252573](D:\桌面\软件工程\文档\ssm框架\img\image-20210202135252573.png)
+![image-20210202135252573](.\img\image-20210202135252573.png)
 
 ## Mybatis分页插件（PageHelper）
 
@@ -1237,11 +1237,11 @@ public  void TestSelectPageHelp(){
 
 **5、测试结果**
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210202175228254.png" alt="image-20210202175228254" style="zoom:80%;" />
+<img src=".\img\image-20210202175228254.png" alt="image-20210202175228254" style="zoom:80%;" />
 
 **执行过程中的sql**
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210202175338228.png" alt="image-20210202175338228" style="zoom:80%;" />
+<img src=".\img\image-20210202175338228.png" alt="image-20210202175338228" style="zoom:80%;" />
 
 ## Mybatis整合C3P0连接池
 
@@ -1288,7 +1288,7 @@ public class C3P0DataSourceFactory extends UnpooledDataSourceFactory {
 
 **3、测试结果**
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210202201526308.png" alt="image-20210202201526308" style="zoom:80%;" />
+<img src=".\img\image-20210202201526308.png" alt="image-20210202201526308" style="zoom:80%;" />
 
 ## Mybatis批处理
 
@@ -1349,7 +1349,7 @@ public void TestbathInsert(){
 
 **测试成功**
 
-![image-20210202205716547](D:\桌面\软件工程\文档\ssm框架\img\image-20210202205716547.png)
+![image-20210202205716547](.\img\image-20210202205716547.png)
 
 ==执行的效率非常高==
 
@@ -1403,7 +1403,7 @@ public void TestbatchDelete(){
 
 **测试成功**
 
-![image-20210202211105236](D:\桌面\软件工程\文档\ssm框架\img\image-20210202211105236.png)
+![image-20210202211105236](.\img\image-20210202211105236.png)
 
 ## Mybatis注解开发（替代mapper.xml中的标签，简化配置过程）
 
@@ -1473,7 +1473,7 @@ public void TestNotSelect(){
 
 **测试结果**
 
-![image-20210202221128515](D:\桌面\软件工程\文档\ssm框架\img\image-20210202221128515.png)
+![image-20210202221128515](.\img\image-20210202221128515.png)
 
 #### 2、注解插入
 
@@ -1524,5 +1524,5 @@ public void TestNoteInsert(){
 
 **测试结果**
 
-<img src="D:\桌面\软件工程\文档\ssm框架\img\image-20210202222646170.png" alt="image-20210202222646170" style="zoom:80%;" />
+<img src=".\img\image-20210202222646170.png" alt="image-20210202222646170" style="zoom:80%;" />
 

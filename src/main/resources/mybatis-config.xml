@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--开启驼峰命名   user_id => userId -->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--helperDialect：分页插件会自动检测当前的数据库链接，自动选择合适的分页方式。
+             你可以配置helperDialect属性来指定分页插件使用哪种方言。配置时，可以使用下面的缩写值：
+                oracle,mysql,mariadb,sqlite,hsqldb,postgresql,db2,sqlserver,informix,h2,sqlserver2012,derby
+                特别注意：使用 SqlServer2012 数据库时，需要手动指定为 sqlserver2012，
+                否则会使用 SqlServer2005 的方式进行分页。
+                你也可以实现 AbstractHelperDialect，
+                然后配置该属性为实现类的全限定名称即可使用自定义的实现方法。-->
+            <property name="helperDialect" value="mysql"/>
+            <!--reasonable :分页合理化参数，默认值为false。
+                当该参数设置为 true 时，pageNum<=0 时会查询第一页，
+                 pageNum>pages（超过总数时），会查询最后一页。
+             默认false 时，直接根据参数进行查询。-->
+            <property name="reasonable" value="true"/>
+        </plugin>
+    </plugins>
+    <!--default为 用哪个环境配置，dev，可以有多个配置环境可以通过 environment id来表标识环境  -->
+    <environments default="dev">
+        <!--环境配置 id为唯一标识-->
+        <environment id="dev">
+            <!--transactionManager type='以什么方式对数据库事务管理'-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--数据源  POOLED数据库连接池进行管理-->
+<!--            <dataSource type="POOLED">-->
+<!--                &lt;!&ndash;配置数据库端口 url 用户名密码&ndash;&gt;-->
+<!--                <property name="driver" value="com.mysql.jdbc.Driver"/>-->
+<!--                <property name="url" value="jdbc:mysql://localhost:3306/admin?useUnicode=true&amp;characterEncoding=utf8"/>-->
+<!--                <property name="username" value="root"/>-->
+<!--                <property name="password" value="123456"/>-->
+<!--            </dataSource>-->
+            <dataSource type="xyz.herther.datasource.C3P0DataSourceFactory">
+                <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+                <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/admin?useUnicode=true&amp;characterEncoding=utf8"/>
+                <property name="user" value="root"/>
+                <property name="password" value="123456"/>
+                <!--初始连接池连接数量-->
+                <property name="initialPoolSize" value="5"/>
+                <!--最大连接池连接数量-->
+                <property name="maxPoolSize" value="20"/>
+                <!--最少连接池连接数量-->
+                <property name="minPoolSize" value="5"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+    <!--配置映射文件-->
+    <mappers>
+             <!--resource mapper的路
+                    <mapper resource="mappers/topic.xml"/>
+                    <mapper resource="mappers/reply.xml"/>
+              -->
+        <!--两种方式引入Dao-->
+        <!--1、老样子一个个引入-->
+<!--        <mapper class="xyz.herther.dao.TopicDao"/>-->
+        <!--2、全部一次导入引用-->
+        <package name="xyz.herther.dao"/>
+    </mappers>
+</configuration>

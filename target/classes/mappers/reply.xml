@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reply">
+    <select id="selectReplyByTopId" parameterType="Integer" resultType="xyz.herther.entity.Replay">
+            select * from reply where topic_id = #{value}
+    </select>
+    <!--多对一查询-->
+    <resultMap id="MoreSelect" type="xyz.herther.entity.Replay">
+        <id property="id" column="id"></id>
+        <result property="topicId" column="topic_id"></result>
+        <!--
+        多对一
+        association ：匹配查询
+        property：为reply实体新增 实体属性
+        column：传值过去另外一个语句的参数
+        select：另外一个要执行的语句
+        -->
+        <association property="topic" column="topic_id" select="topic.selectById"></association>
+    </resultMap>
+    <select id="selectManyToOne" resultMap="MoreSelect">
+        select  * from reply limit 0,10
+    </select>
+</mapper>

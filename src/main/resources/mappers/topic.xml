@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace-->
+<mapper namespace="topic">
+    <!--开启二级缓存，
+        eviction是缓存的清楚策略 当缓存对象达到上限则会自动触发对应的算法，来清除缓存对象
+        1、LRU是最近不久未使用：移除最长时间不适用的对象
+            LFU最近最少未使用：移除最少不适用的对象
+        2、FIFO -先进先出，按对象进入的缓存顺序来移除
+        3、SOFT -软引用：移除基于垃圾收集器状态和软引用的规则对象
+        4、WEAK -弱引用：更积极的移除基于垃圾收集器状态和弱引用规则对象
+
+        flushInterval：代表时间间隔多长时间清空缓存对象。，单位毫秒、600000 = 10分钟
+        size：缓存对象的长度、最大多少对象
+        readOnly：true ：代表返回只读缓存，每次从缓存取出缓存对象，这种效率高
+                  false：代表每次取出的缓存对象的”副本“，每次取出的对象不同，这种效率高
+    -->
+    <cache eviction="LRU" flushInterval="600000" size="500" readOnly="true"/>
+
+
+
+    <!--resultType 返回的结果集类型   id 为执行是的id唯一标识-->
+<select id="selectAll" resultType="xyz.herther.entity.Topic">
+        select * from topic limit 0,5
+</select>
+    <!--parameterType 为传参的类型-->
+    <select id="selectById" parameterType="Integer" resultType="xyz.herther.entity.Topic">
+        <!--#{value} 为传进来参数的值-->
+        select * from topic where id = #{value}
+    </select>
+    <!--parameterMap="java.util.Map"传进map对象-->
+    <select id="selectClick" parameterType="java.util.Map" resultType="xyz.herther.entity.Topic">
+        <!--max，page，limit为对map中的key-->
+    select  * from topic where click between #{min} and #{max} limit #{limit},#{page}
+    </select>
+    <!--返回LinkedHashMap 链表形式的map-->
+    <!--多表查询-->
+    <select id="selectMap" resultType="java.util.LinkedHashMap">
+            select t.* ,tab.tab_name from topic t join tab on t.tab_id= tab.id
+    </select>
+    <!--type 为dto中的数据实体-->
+    <!--结果集映射-->
+    <resultMap id="topicdto" type="xyz.herther.dto.TopicDto">
+    <!-- 注入主键字段与属性映射-->
+        <id property="topic.tabId" column="tab_id"></id>
+    <!-- 注入非主键字段与属性映射-->
+        <result property="topic.id" column="id"></result>
+        <result property="topic.userId" column="user_id"></result>
+        <result property="topic.createTime" column="create_time"></result>
+        <result property="topic.updateTime" column="update_time"></result>
+        <result property="topic.title" column="title"></result>
+        <result property="topic.content" column="content"></result>
+        <result property="topic.click" column="click"></result>
+        <result property="topic.tabId" column="tabId"></result>
+        <result property="tabName" column="tab_name"></result>
+        <result property="tabNameEn" column="tab_name_en"></result>
+    </resultMap>
+    <select id="selectDto" resultMap="topicdto">
+         select t.* ,tab.tab_name from topic t join tab on t.tab_id= tab.id
+    </select>
+
+    <!--插入操作-->
+    <insert id="inserTopic" parameterType="xyz.herther.entity.Topic">
+        INSERT INTO topic(user_id,create_time,update_time,title,content,click,tab_id)
+        VALUES (#{userId},#{createTime},#{updateTime},#{title},#{content},#{click},#{tabId})
+        <!--主键回显 resultType返回类型，keyProperty返回对应的实体字段名称，AFTER在insert语句之后 BEFORE在insert之前-->
+        <selectKey resultType="Integer" keyProperty="id" order="AFTER">
+            SELECT last_insert_id()
+        </selectKey>
+    </insert>
+    <!--更新操作-->
+    <update id="updateTopic" parameterType="xyz.herther.entity.Topic">
+        UPDATE topic
+        SET user_id= #{userId},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            title = #{title},
+            content = #{content},
+            click = #{click},
+            tab_id = #{tabId}
+        WHERE
+            id = #{id}
+    </update>
+    <!--删除-->
+    <delete id="deleteTopic" parameterType="Integer">
+        DELETE FROM Topic WHERE id=#{value}
+    </delete>
+
+    <!--动态sql-->
+    <select id="selecetDynamic" parameterType="java.util.Map" resultType="xyz.herther.entity.Topic" >
+        SELECT  * FROM topic
+--         WHERE
+--         1=1
+        <where>
+            <if test="userId !=null">
+                and user_id =#{userId}
+            </if>
+            <if test="click !=null">
+                and click &gt; #{click}
+            </if>
+        </where>
+    </select>
+
+    
+    <!--级联查询-->
+    <resultMap id="cascade" type="xyz.herther.entity.Topic">
+        <id property="id" column="id"></id> <!--主键 当前topic的-->
+        <!--
+        collection 会变量查询出的集合拿到id 去执行调用reply.xml的语句
+        property：就是在topic实体类中新增 List集合中实体名
+        select：   就是调用 reply.xml中的selectReplyByTopId方法查询
+        column： 传过去的参数为什么字段（也就是reply表中的外键）
+        -->
+        <collection property="replay" select="reply.selectReplyByTopId" column="id"/>
+    </resultMap>
+    <select id="SelectOneMarny" resultMap="cascade">
+        select  * from topic limit 0,10;
+    </select>
+
+    <select id="SelectPageHelp" resultType="xyz.herther.entity.Topic">
+        select  * from topic where click &gt; 10
+    </select>
+    <!--批处理新增-->
+    <insert id="batchInsert" parameterType="java.util.List">
+        INSERT INTO topic(user_id,create_time,update_time,title,content,click,tab_id)
+        VALUES
+        <!--collection遍历的数据源强制要求是list   item遍历的变量， index下标，separator以什么分割 ”逗号“ -->
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.userId},#{item.createTime},#{item.updateTime},#{item.title},#{item.content},#{item.click},#{item.tabId})
+        </foreach>
+    </insert>
+    <!--批处理删除-->
+    <delete id="batchDelete" parameterType="java.util.List">
+        DELETE FROM topic WHERE title in
+        <!--collection遍历的数据源强制要求是list   item遍历的变量， index下标，separator以什么分割 ”逗号“ -->
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>
